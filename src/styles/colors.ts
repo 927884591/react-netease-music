@@ -1,0 +1,16 @@
+// @value red: #c7332f;
+// @value grey: #7d7d7d;
+// @value black: #000;
+// @value blue: #769acb;
+// @value nameColor: #5d5d5d;
+// @value nameHoverColor: #1e1e1e;
+// @value tipsColor: #bababa;
+// @value tipsHoverColor: #7c7c7c;
+// @value borderColor: #f5f5f5;
+// @value bgColor: #f2f2f3;
+export const borderColor = "#f5f5f5";
+export const nameColor = "#5d5d5d";
+export const tipsColor = "#bababa";
+export const tipsHoverColor = "#7c7c7c";
+export const songListHoverColor = "#d7d7d7";
+export const loginBackgroundColor = "#f2f2f2";
