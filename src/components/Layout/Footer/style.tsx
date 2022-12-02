@@ -11,7 +11,7 @@ export default styled.div`
   box-shadow: 0 3px 12px 0 rgb(0 0 0 / 12%);
   display: flex;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 12;
   backdrop-filter: blur(44px);
   .ant-layout-footer {
     background: rgba(255, 255, 255, 0.5);

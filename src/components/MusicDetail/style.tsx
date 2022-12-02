@@ -15,14 +15,14 @@ const route = keyframes`
 `;
 export default styled.div`
   width: 100%;
-  height: calc(100% - ${FOOTHEIGHT});
+  height: 100vh;
   background-color: #f9f9f9;
   position: fixed;
   top: 100%;
   left: 0;
   transition: all 0.5s ease;
   overflow-y: scroll;
-  z-index: 99;
+  z-index: 11;
   .music,
   .relatedInfo {
     width: 1000px;

@@ -72,7 +72,7 @@ const getUserSonglist: GetUserSonglistFn = async (uid) => {
     url: "/user/playlist",
     params: {
       uid,
-      limit: PAGE_SIZE,
+      limit: 30,
     },
   });
 

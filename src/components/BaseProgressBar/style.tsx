@@ -13,9 +13,17 @@ export default styled.div`
     align-items: center;
     margin: 0;
     padding: 0;
+    .ant-slider-track {
+      background: rgba(0, 0, 0);
+    }
+    /* .ant-slider-step {
+      background: rgba(255, 255, 255, 0.8);
+    } */
     &:hover .ant-slider-handle {
+      background-color: #e7e7e7;
       display: block;
       margin-top: 0;
+      border: 0;
     }
   }
   .ant-slider-handle {

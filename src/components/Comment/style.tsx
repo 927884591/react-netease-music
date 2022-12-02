@@ -20,7 +20,8 @@ export default styled.div`
     border-bottom: 1px solid #ededed;
 
     .comment {
-      width: ${650 - 55}px;
+      /* width: calc(); */
+      width: ${650 - 55}px !important;
       margin-bottom: 8px;
       font-size: 0.95em;
     }
