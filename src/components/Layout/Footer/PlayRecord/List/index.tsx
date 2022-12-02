@@ -12,6 +12,8 @@ import {
 //导入组件类型
 import type { ColumnsType } from "antd/es/table";
 
+import Card from "@/components/Card";
+
 import {
   IMyMusic,
   IArtist,
@@ -34,12 +36,19 @@ const List: React.FC<IProps> = memo((props: any) => {
     {
       key: "name",
       width: "55%",
-      render: (name: string, { id, fee }: IMyMusic) => {
+      render: (name: string, { id, fee, picUrl }: IMyMusic) => {
         const isActive = state.musicId === id;
         return (
           <div className={cn("name", isActive && "active")}>
             {isActive &&
               (state?.paused ? <PlayCircleFilled /> : <PauseCircleFilled />)}
+            <Card
+              img={`${picUrl}?param=60y60`}
+              width={45}
+              height={45}
+              showAnimation={false}
+              showPlayIcon
+            ></Card>
             <div className="text">
               <span>{name}</span>
               {fee === MUSIC_TYPE.VIP && "哈哈"}
@@ -62,7 +71,10 @@ const List: React.FC<IProps> = memo((props: any) => {
     {
       key: "duration",
       width: "15%",
-      render: (duration: number) => formatTime(duration),
+      render: (duration: number) => {
+        // console.log(formatTime(duration));
+        return formatTime(duration);
+      },
     },
   ];
   return (

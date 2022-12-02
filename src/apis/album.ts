@@ -14,6 +14,15 @@ const getAlbum: GetAlbumFn = async (id) => {
   return response;
 };
 
+const getNewAlbums = async (params: any) => {
+  const response = await axios({
+    url: "/album/new",
+    params,
+  });
+  return response.albums;
+};
+
 export default {
   getAlbum,
+  getNewAlbums,
 };

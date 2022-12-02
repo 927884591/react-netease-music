@@ -4,6 +4,7 @@ export default styled.span`
   display: inline-block;
 
   .navItem {
+    font-size: 1.1rem;
     margin-right: 32px;
     color: grey;
     font-weight: 700;

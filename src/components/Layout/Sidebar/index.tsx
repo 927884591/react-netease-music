@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import Siderbar from "./style";
 import { SIDERBARWIDTH } from "@/constants/style";
 import UserSonglist from "./UserSonglist";
+import MusicDetail from "components/MusicDetail";
 //导入API
 import authApis from "apis/auth";
 import songlistApis from "apis/songlist";
@@ -21,7 +22,7 @@ import {
   CaretRightOutlined,
 } from "@ant-design/icons";
 //导入登录框组件
-import LoginDialog from "./LoginDialog";
+import LoginDialog from "../../LoginDialog";
 //导入动画组件
 import { CSSTransition } from "react-transition-group";
 
@@ -57,7 +58,7 @@ const SidebarNa: any = (props: any) => {
   const [songlistState, getUserSonglistFn] = useAsyncFn(
     songlistApis.getUserSonglist
   );
-  const { loginInfo, changeLoginOut } = props;
+  const { loginInfo, changeLoginOut, musicId } = props;
   //从props拿到login信息
   const { isLogined, user } = loginInfo;
   //确定登录状态
@@ -144,6 +145,8 @@ const SidebarNa: any = (props: any) => {
           onClose={handleLoginDialogClose}
         ></LoginDialog>
       )}
+      {/* 展示歌词页面 */}
+      {!!musicId && <MusicDetail />}
       {/* {showLoginDialog && (
         <CSSTransition
           in={showLoginDialog}
@@ -159,6 +162,7 @@ const SidebarNa: any = (props: any) => {
 };
 const mapStateToProps = (state: any) => ({
   loginInfo: state.login,
+  musicId: state.playMusic.musicId,
 });
 function mapDispatchToProps(dispatch: any) {
   return {

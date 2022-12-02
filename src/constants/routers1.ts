@@ -1,13 +1,14 @@
 export const ROOT = "/";
 
-export const RECOMMENDATION = `/recommendation`;
-export const DISCOVERY = RECOMMENDATION;
+export const HOME = `/home`;
+// export const DISCOVERY = HOME;
 
 export const SONG_LIST = `/songlist`;
+export const PLAY_LIST = `/playlist`;
 export const LEADER_BOARD = `/leaderboard`;
 export const SINGERS = `/singers`;
 export const LATEST_MUSIC = `/latestmusic`;
-export const RECOMMEND_DAILY = `/recommend_daily`;
+export const DISCOVERY = `/discovery`;
 
 export const VIDEOS = "/videos";
 export const VIDEO = `${VIDEOS}/video`;

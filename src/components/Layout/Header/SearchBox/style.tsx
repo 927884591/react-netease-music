@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { HEADERHEIGHT, FOOTHEIGHT } from "@/constants/style";
 export default styled.span`
   display: flex;
   align-items: center;
@@ -23,5 +24,21 @@ export default styled.span`
       border: none;
       background-color: transparent;
     }
+  }
+  .result {
+    width: 350px;
+    height: calc(100vh - 8vh - ${FOOTHEIGHT});
+    padding: 18px 0;
+    position: fixed;
+    right: 0;
+    top: 8vh;
+    transform: translate(100%, 0);
+    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 12%);
+    background-color: #fff;
+    transition: transform 0.3s ease;
+  }
+
+  .show {
+    transform: translate(0, 0);
   }
 `;

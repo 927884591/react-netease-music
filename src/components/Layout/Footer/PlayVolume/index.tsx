@@ -4,8 +4,11 @@ import PlayVolumeStyle from "./style";
 import { SoundOutlined } from "@ant-design/icons";
 import BaseProgressBar from "@/components/BaseProgressBar";
 import { connect } from "react-redux";
+
+import { ReactComponent as VolumeIcon } from "assets/icons/volume.svg";
 const PlayVolume = memo((props: any) => {
   const { state, controls } = props;
+  // console.log(controls);
 
   const handleBarClick = useCallback(
     (percent: number) => {
@@ -20,7 +23,7 @@ const PlayVolume = memo((props: any) => {
 
   return (
     <PlayVolumeStyle>
-      <SoundOutlined />
+      <VolumeIcon height="20px" width="20px" />
       <div className="progress">
         <BaseProgressBar
           className="bar"

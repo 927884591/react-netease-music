@@ -11,17 +11,16 @@ import { connect, useDispatch } from "react-redux";
 import { play as playAction } from "@/reducers/playMusicSlice";
 import { paused as pausedAction } from "@/reducers/audioSlice";
 
-import {
-  StepBackwardFilled,
-  PauseCircleFilled,
-  PlayCircleFilled,
-  StepForwardFilled,
-} from "@ant-design/icons";
+import { ReactComponent as PauseIcon } from "assets/icons/pause.svg";
+import { ReactComponent as PlayIcon } from "assets/icons/play.svg";
+import { ReactComponent as PreviousIcon } from "assets/icons/previous.svg";
+import { ReactComponent as NextIcon } from "assets/icons/next.svg";
 
 const PlayOperations = memo((props: any) => {
   const dispatch = useDispatch();
   //从props中获取值
   const { state, paused, audioState, controls } = props;
+
   const { musicId } = state;
   //从localStorage获取播放数据
   const playList = useMemo(() => playListLocalStorage.getItem(), [musicId]);
@@ -44,6 +43,7 @@ const PlayOperations = memo((props: any) => {
 
       const index = playList.findIndex(({ id }) => id === musicId);
       let nextIndex = -1;
+      console.log(index);
 
       if (index > -1) {
         nextIndex = prev ? (index - 1 + len) % len : (index + 1) % len;
@@ -66,13 +66,18 @@ const PlayOperations = memo((props: any) => {
   return (
     <PlayOperationsStyle>
       <div className="prev" onClick={playPrev}>
-        <StepBackwardFilled />
+        <PreviousIcon width="20px" />
       </div>
       <div className="pause" onClick={togglePlayStatus}>
-        {audioState?.paused ? <PlayCircleFilled /> : <PauseCircleFilled />}
+        {/* {audioState?.paused ? <PlayCircleFilled /> : <PauseCircleFilled />} */}
+        {audioState?.paused ? (
+          <PlayIcon width="25px"></PlayIcon>
+        ) : (
+          <PauseIcon width="25px" />
+        )}
       </div>
       <div className="next" onClick={playNext}>
-        <StepForwardFilled />
+        <NextIcon width="20px" />
       </div>
     </PlayOperationsStyle>
   );
@@ -80,7 +85,7 @@ const PlayOperations = memo((props: any) => {
 
 function mapStateToProps(state: any) {
   return {
-    state: state.audio.state,
+    state: state.playMusic,
     paused: state.audio.paused,
     audioState: state.audio.state,
     controls: state.audio.controls,

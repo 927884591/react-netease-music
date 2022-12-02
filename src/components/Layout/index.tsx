@@ -10,11 +10,11 @@ import Footer from "./Footer";
 import Sider from "./Sidebar";
 import Header from "./Header";
 import Content from "./Content";
-
+import MusicDetail from "components/MusicDetail";
 //导入样式
 import LayoutStyle from "./style";
 const LayoutNa = memo((props: any) => {
-  // const { musicId, musicUrl, playMode } = props;
+  const { musicId } = props;
   // const playList = useMemo(() => playListLocalStorage.getItem(), [musicId]);
   // const [audio, audioState, audioControls, audioRef] = useAudio({
   //   src: musicUrl,
@@ -32,13 +32,14 @@ const LayoutNa = memo((props: any) => {
       <Layout className="container">
         <Header></Header>
         <Layout>
-          <Sider></Sider>
+          {/* <Sider></Sider> */}
           <div className="main">
             <Content></Content>
           </div>
         </Layout>
         <Footer></Footer>
       </Layout>
+      {!!musicId && <MusicDetail />}
     </LayoutStyle>
   );
 });

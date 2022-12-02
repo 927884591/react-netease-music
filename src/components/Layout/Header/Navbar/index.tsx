@@ -1,7 +1,7 @@
 import {
-  RECOMMENDATION,
+  HOME,
   LATEST_MUSIC,
-  RECOMMEND_DAILY,
+  DISCOVERY,
   SONG_LIST,
   LEADER_BOARD,
   SINGERS,
@@ -12,28 +12,16 @@ import cn from "classnames";
 import NavbarStyle from "./style";
 const navbar: any = [
   {
-    label: "个性推荐",
-    route: RECOMMENDATION,
+    label: "首页",
+    route: HOME,
   },
   {
-    label: "每日歌曲推荐",
-    route: RECOMMEND_DAILY,
+    label: "发现",
+    route: DISCOVERY,
   },
   {
-    label: "歌单",
+    label: "音乐库",
     route: SONG_LIST,
-  },
-  {
-    label: "排行榜",
-    route: LEADER_BOARD,
-  },
-  {
-    label: "歌手",
-    route: SINGERS,
-  },
-  {
-    label: "最新音乐",
-    route: LATEST_MUSIC,
   },
 ];
 

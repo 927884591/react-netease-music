@@ -1,74 +1,95 @@
-import axios from 'helpers/axios'
-import { ISonglist } from './types/business'
-import { IGetSonglistsRequest, IGetSonglistCatsResponse, ICategory } from './types/songlist'
-import { PAGE_SIZE } from 'constants/pagination'
+import axios from "helpers/axios";
+import { ISonglist } from "./types/business";
+import {
+  IGetSonglistsRequest,
+  IGetSonglistCatsResponse,
+  ICategory,
+} from "./types/songlist";
+import { PAGE_SIZE } from "constants/pagination";
+import { url } from "inspector";
 
-type GetSonglistsFn = (params: IGetSonglistsRequest) => Promise<{ playlists: ISonglist[]; total: number }>
-type GetSonglistCatsFn = () => Promise<IGetSonglistCatsResponse>
-type GetSonglistHotCatsFn = () => Promise<ICategory[]>
-type GetHighQualitySonglistFn = (cat?: string) => Promise<ISonglist>
-type GetUserSonglistFn = (uid: number) => Promise<{ create: ISonglist[]; collect: ISonglist[] }>
+type GetSonglistsFn = (
+  params: IGetSonglistsRequest
+) => Promise<{ playlists: ISonglist[]; total: number }>;
+type GetSonglistCatsFn = () => Promise<IGetSonglistCatsResponse>;
+type GetSonglistHotCatsFn = () => Promise<ICategory[]>;
+type GetHighQualitySonglistFn = (cat?: string) => Promise<ISonglist>;
+type GetUserSonglistFn = (
+  uid: number
+) => Promise<{ create: ISonglist[]; collect: ISonglist[] }>;
 
-const getSonglists: GetSonglistsFn = async ({ cat, order, limit = PAGE_SIZE, offset }) => {
+const getSonglists: GetSonglistsFn = async ({
+  cat,
+  order,
+  limit = PAGE_SIZE,
+  offset,
+}) => {
   const response = await axios({
-    url: '/top/playlist',
+    url: "/top/playlist",
     params: {
       cat,
       order,
       limit,
       offset,
     },
-  })
+  });
 
-  return response
-}
+  return response;
+};
 
 const getSonglistCats: GetSonglistCatsFn = async () => {
   const response = await axios({
-    url: '/playlist/catlist',
-  })
+    url: "/playlist/catlist",
+  });
 
-  return response
-}
+  return response;
+};
 
 const getSonglistHotCats: GetSonglistHotCatsFn = async () => {
   const response = await axios({
-    url: '/playlist/hot',
-  })
+    url: "/playlist/hot",
+  });
 
-  return response.tags
-}
+  return response.tags;
+};
 
-const getHighQualitySonglist: GetHighQualitySonglistFn = async (cat = '全部') => {
+const getHighQualitySonglist: GetHighQualitySonglistFn = async (
+  cat = "全部"
+) => {
   const response = await axios({
-    url: '/top/playlist/highquality',
+    url: "/top/playlist/highquality",
     params: {
       limit: 1,
       cat,
     },
-  })
+  });
 
-  return response?.playlists?.[0]
-}
+  return response?.playlists?.[0];
+};
 
 const getUserSonglist: GetUserSonglistFn = async (uid) => {
   const response = await axios({
-    url: '/user/playlist',
+    url: "/user/playlist",
     params: {
       uid,
       limit: PAGE_SIZE,
     },
-  })
+  });
 
-  const playlist: ISonglist[] = response.playlist || []
-  const create = playlist.filter(({ creator }) => uid === creator.userId)
-  const collect = playlist.filter(({ creator }) => uid !== creator.userId)
+  const playlist: ISonglist[] = response.playlist || [];
+  const create = playlist.filter(({ creator }) => uid === creator.userId);
+  const collect = playlist.filter(({ creator }) => uid !== creator.userId);
 
   return {
     create,
     collect,
-  }
-}
+  };
+};
+//获取歌单所有歌曲
+const getListDetail: any = async (params: any) => {
+  const response = await axios({ url: "/playlist/detail", params });
+  return response;
+};
 
 export default {
   getSonglists,
@@ -76,4 +97,5 @@ export default {
   getSonglistHotCats,
   getHighQualitySonglist,
   getUserSonglist,
-}
+  getListDetail,
+};

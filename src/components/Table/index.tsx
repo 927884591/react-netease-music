@@ -12,6 +12,7 @@ export interface IColumn<RecordType, Key extends keyof RecordType> {
     record: RecordType,
     index?: number
   ) => string | ReactElement;
+  keys?: string;
 }
 
 interface IProps<RecordType> {
@@ -35,7 +36,13 @@ function Table<RecordType extends Record<string, any> = any>({
         <div className="header">
           {columns.map(({ title, width }, index) => {
             return (
-              <div key={index} style={{ width }}>
+              <div
+                key={index}
+                style={{
+                  width: width === "214px" ? 0 : width,
+                  paddingLeft: width === "214px" ? "214px" : 0,
+                }}
+              >
                 {title}
               </div>
             );
@@ -46,17 +53,16 @@ function Table<RecordType extends Record<string, any> = any>({
         <div className="content">
           {data?.map((item, index) => {
             const disabled = isRecordRowDisabled && isRecordRowDisabled(item);
-
             return (
               <div
                 key={index}
                 className={cn("row", disabled && "disabled")}
                 onDoubleClick={disabled ? noop : () => onDoubleClick(item)}
               >
-                {columns.map(({ key, width, render }, idx) => {
+                {columns.map(({ key, keys, width, render }, idx) => {
                   return (
-                    <div key={idx} style={{ width }}>
-                      {render(item[key], item, index)}
+                    <div className="info" key={idx} style={{ width }}>
+                      {render(item[key] || (keys && item[keys]), item, index)}
                     </div>
                   );
                 })}

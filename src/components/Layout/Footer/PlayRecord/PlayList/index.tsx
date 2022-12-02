@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import List from "../List";
 import { IMyMusic } from "apis/types/business";
 import { playHistory as playHistoryLocalStorage } from "helpers/play";
+import { playList as playListLocalStorage } from "helpers/play";
 import useUpdate from "hooks/useUpdate";
 //导入store
 import { useDispatch } from "react-redux";
@@ -16,7 +17,9 @@ const PlayList = memo(() => {
 
   const dispatch = useDispatch();
   //获取loaclStorage的播放列表
-  const playHistory = playHistoryLocalStorage.getItem();
+  // const playHistory = playHistoryLocalStorage.getItem();
+  const playList = playListLocalStorage.getItem();
+  console.log(99999999999999, playList);
 
   //提交到store
   const handleDoubleClick = (item: IMyMusic) => {
@@ -34,7 +37,7 @@ const PlayList = memo(() => {
   };
   return (
     <List
-      data={playHistory}
+      data={playList}
       onDoubleClick={handleDoubleClick}
       onClear={handleClear}
     />

@@ -5,12 +5,31 @@ module.exports = {
     proxy: {
       "/api": {
         target: "http://localhost:3000",
+        changeOrigin: true, //允许跨域
         pathRewrite: { "^/api": "" },
       },
     },
   },
   webpack: {
-    module: true,
+    configure: (webpackConfig, { env, paths }) => {
+      webpackConfig.module.rules.push({
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "svg-sprite-loader",
+            options: {
+              symbolId: "icon-[name]",
+            },
+          },
+        ],
+        include: [path.resolve("src/assets/icons")],
+      });
+      // webpackConfig.module.rules[1].oneOf[2].exclude = [
+      //   path.resolve("src/assets/icons"),
+      // ];
+      console.log(webpackConfig.module.rules[3]);
+      return webpackConfig;
+    },
     alias: {
       "@": path.resolve(__dirname, "src"),
       helpers: path.resolve(__dirname, "src/helpers"),

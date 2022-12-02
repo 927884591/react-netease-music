@@ -207,10 +207,12 @@ const useCreateHTMLMediaHook = (tag: "audio" | "video") => {
       },
       volume: (volume: number) => {
         const el = ref.current;
+
         if (!el) {
           return;
         }
         volume = Math.min(1, Math.max(0, volume));
+
         el.volume = volume;
         setState({ volume });
       },

@@ -1,22 +1,34 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { ISonglist } from "apis/types/business";
 import SongListItem from "./SonglistItem";
+import Card from "../Card";
 import SonglistsStyle from "./style";
+
 interface IProps {
-  data?: ISonglist[];
+  data: ISonglist[];
 }
 const Songlists: React.FC<IProps> = memo(({ data }) => {
+  console.log(data);
+
   return (
     <SonglistsStyle>
       {data?.map(({ id, name, playCount, picUrl, coverImgUrl }, index) => {
         return (
-          <SongListItem
+          // <SongListItem
+          //   key={index}
+          //   id={id}
+          //   name={name}
+          //   playCount={playCount}
+          //   picUrl={picUrl || coverImgUrl}
+          // />
+          <Card
             key={index}
-            id={id}
+            img={picUrl || coverImgUrl}
             name={name}
             playCount={playCount}
-            picUrl={picUrl || coverImgUrl}
-          />
+            showPlayIcon
+            id={id}
+          ></Card>
         );
       })}
     </SonglistsStyle>

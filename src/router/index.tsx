@@ -1,35 +1,39 @@
 import { Navigate } from "react-router-dom";
 import {
   ROOT,
-  RECOMMENDATION,
+  HOME,
   LATEST_MUSIC,
-  RECOMMEND_DAILY,
+  DISCOVERY,
   SONG_LIST,
   LEADER_BOARD,
   SINGERS,
+  SEARCH,
+  PLAY_LIST,
 } from "@/constants/routers1";
-import Recommendation from "@/views/Recommendation";
+import Home from "@/views/Home";
 import LatestMusic from "@/views/LatestMusic";
-import RecommendDaily from "@/views/RecommendDaily";
+import Discovery from "@/views/Discovery";
 import Songlist from "@/views/Songlist";
 import LeaderBoard from "@/views/LeaderBoard";
 import Singers from "@/views/Singers";
+import Search from "@/views/Search";
+import PlayList from "@/views/PlayList";
 export const routes = [
   {
     path: ROOT,
-    element: <Navigate to={RECOMMENDATION} />,
+    element: <Navigate to={HOME} />,
   },
   {
-    path: RECOMMENDATION,
-    element: <Recommendation />,
+    path: HOME,
+    element: <Home />,
   },
   {
     path: LATEST_MUSIC,
     element: <LatestMusic />,
   },
   {
-    path: RECOMMEND_DAILY,
-    element: <RecommendDaily />,
+    path: DISCOVERY,
+    element: <Discovery />,
   },
   {
     path: SONG_LIST,
@@ -42,5 +46,13 @@ export const routes = [
   {
     path: SINGERS,
     element: <Singers />,
+  },
+  {
+    path: SEARCH,
+    element: <Search />,
+  },
+  {
+    path: `${PLAY_LIST}/:id`,
+    element: <PlayList />,
   },
 ];

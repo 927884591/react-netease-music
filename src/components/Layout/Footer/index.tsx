@@ -1,4 +1,5 @@
 import React, { memo, useState, useCallback } from "react";
+import ReactDOM from "react-dom";
 import { Layout, Tooltip } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
 //导入store
@@ -25,9 +26,11 @@ import PlayMode from "./PlayMode";
 import PlayVolume from "./PlayVolume";
 import PlayRecord from "./PlayRecord";
 
+import { ReactComponent as PlaylistIcon } from "assets/icons/playlist.svg";
+
 const { Footer } = Layout;
 const FooterNa = memo((props: any) => {
-  //展示展示播放状态
+  //展示播放列表
   const [showPlayRecord, setShowPlayRecord] = useState(false);
   //
   const dispatch = useDispatch();
@@ -35,7 +38,7 @@ const FooterNa = memo((props: any) => {
 
   const togglePlayRecord = useCallback(() => {
     setShowPlayRecord(!showPlayRecord);
-  }, [showPlayRecord, setShowPlayRecord]);
+  }, [showPlayRecord]);
 
   //提交到store
   const handleShowLyric = useCallback(() => {
@@ -67,10 +70,12 @@ const FooterNa = memo((props: any) => {
               <div className={cn("pic", !showLyric ? "showLyric" : "")}>
                 <img
                   src={
-                    music?.picUrl ? `${music?.picUrl}?param=40y40` : undefined
+                    music?.picUrl ? `${music?.picUrl}?param=100y100` : undefined
                   }
                   loading="lazy"
                   alt=""
+                  width="40px"
+                  height="40px"
                 />
                 {!showLyric && (
                   <div className="mask" onClick={handleShowLyric}>
@@ -110,7 +115,11 @@ const FooterNa = memo((props: any) => {
           </div>
           <div onClick={togglePlayRecord} className="item">
             <Tooltip title="打开播放列表">
-              <MenuFoldOutlined className={showPlayRecord ? "active" : ""} />
+              <PlaylistIcon
+                width="20px"
+                height="20px"
+                className={showPlayRecord ? "active" : ""}
+              />
             </Tooltip>
           </div>
           <div className="item">
@@ -118,10 +127,7 @@ const FooterNa = memo((props: any) => {
           </div>
         </div>
       </Footer>
-      <PlayRecord
-        show={showPlayRecord}
-        onClickAway={() => setShowPlayRecord(false)}
-      />
+      <PlayRecord show={showPlayRecord} onClickAway={() => ""} />,
     </FooterStyle>
   );
 });

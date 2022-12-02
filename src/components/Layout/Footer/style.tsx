@@ -5,14 +5,17 @@ import { bodyMinWidth, footerHeight } from "styles/constants";
 export default styled.div`
   width: 100%;
   min-width: ${bodyMinWidth};
-  height: ${footerHeight};
+  height: 9vh;
   position: fixed;
   bottom: 0;
   box-shadow: 0 3px 12px 0 rgb(0 0 0 / 12%);
   display: flex;
   justify-content: space-between;
-  background-color: #fff;
   z-index: 10;
+  backdrop-filter: blur(44px);
+  .ant-layout-footer {
+    background: rgba(255, 255, 255, 0.5);
+  }
   .progressBar {
     position: absolute;
     top: -4px;
@@ -100,6 +103,11 @@ export default styled.div`
       margin-left: 15px;
       color: #888;
       cursor: pointer;
+      height: 20px;
+      &:last-child {
+        display: flex;
+        align-items: center;
+      }
 
       & span:focus {
         outline: none;

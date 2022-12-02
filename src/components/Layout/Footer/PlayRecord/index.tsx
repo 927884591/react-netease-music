@@ -33,35 +33,33 @@ const PlayRecord: React.FC<IProps> = memo((props) => {
   const [activeTab, setActiveTab] = useState(TABS.PLAY_LIST.tabKey);
   useClickAway(playRecordRef, () => onClickAway());
   return (
-    <div>
-      <PlayRecordStyle className={cn(show && "show")} ref={playRecordRef}>
-        {show && (
-          <>
-            <div className="tabs">
-              {Object.keys(TABS).map((key) => {
-                return (
-                  <div
-                    key={key}
-                    className={cn("tab", activeTab === key && "active")}
-                    onClick={() => setActiveTab(TABS[key].tabKey)}
-                  >
-                    {TABS[key].tab}
-                  </div>
-                );
-              })}
-            </div>
+    <PlayRecordStyle className={cn(show && "show")} ref={playRecordRef}>
+      {show && (
+        <>
+          <div className="tabs">
+            {Object.keys(TABS).map((key) => {
+              return (
+                <div
+                  key={key}
+                  className={cn("tab", activeTab === key && "active")}
+                  onClick={() => setActiveTab(TABS[key].tabKey)}
+                >
+                  {TABS[key].tab}
+                </div>
+              );
+            })}
+          </div>
 
-            <div className="content">
-              {activeTab === TABS.PLAY_LIST.tabKey ? (
-                <PlayList />
-              ) : (
-                <PlayHistory />
-              )}
-            </div>
-          </>
-        )}
-      </PlayRecordStyle>
-    </div>
+          <div className="content">
+            {activeTab === TABS.PLAY_LIST.tabKey ? (
+              <PlayList />
+            ) : (
+              <PlayHistory />
+            )}
+          </div>
+        </>
+      )}
+    </PlayRecordStyle>
   );
 });
 
