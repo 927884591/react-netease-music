@@ -93,7 +93,10 @@ const Discovery = memo(() => {
       <div className="forYou">
         <LinkTitle title="For You"></LinkTitle>
         <div className="recommend">
-          <Card img={result && result[0]?.picUrl} width={400}></Card>
+          <Card
+            img={`${result && result[0]?.picUrl}?param=512y512`}
+            width={400}
+          ></Card>
           <Card
             img={playList && radarImg}
             showPlayIcon

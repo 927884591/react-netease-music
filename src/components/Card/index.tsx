@@ -85,6 +85,10 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
       onClick={id ? () => handleItemClick(id) : () => {}}
     >
       <div className={cn("img", showAnimation && "showAnimation")}>
+        <div
+          className="shadow"
+          style={{ backgroundImage: `url(${img})` }}
+        ></div>
         {playCount && (
           <div className="playCount">
             <CaretRightFilled style={{ fontSize: "16px" }}></CaretRightFilled>

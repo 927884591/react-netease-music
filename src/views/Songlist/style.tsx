@@ -32,16 +32,23 @@ export default styled.div`
         .item {
           display: flex;
           .likeMusicInfo {
+            width: 100px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             margin: 0 15px;
             .name {
-              width: 60px;
+              width: 70px;
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-              .detail {
-              }
+              font-weight: 700;
+            }
+            .detail {
+              font-weight: 700;
+              color: #ccc;
             }
           }
         }

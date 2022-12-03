@@ -5,7 +5,7 @@ export default styled.div`
   flex-direction: column;
   .img {
     position: relative;
-    transition: transform 0.8s;
+    transition: all 0.8s;
     .playCount {
       position: absolute;
       top: 2px;
@@ -13,6 +13,7 @@ export default styled.div`
       color: #fff;
       font-weight: 600;
     }
+
     img {
       cursor: pointer;
     }
@@ -44,9 +45,28 @@ export default styled.div`
     }
   }
   .showAnimation {
+    .shadow {
+      position: absolute;
+      top: 12px;
+      height: 100%;
+      width: 100%;
+      filter: blur(16px) opacity(0.8);
+      transform: scale(0.92, 0.96);
+      z-index: -1;
+      background-size: cover;
+      border-radius: 50px 50px 1em 1em;
+      aspect-ratio: 1 / 1;
+      opacity: 0;
+      transition: all 1.2s;
+    }
     &:hover {
+      opacity: 1;
       transform: translateY(-5px);
-      transition: transform 0.8s;
+      transition: all 0.8s;
+      .shadow {
+        opacity: 1;
+        transition: all 0.8s;
+      }
     }
   }
   .name {
