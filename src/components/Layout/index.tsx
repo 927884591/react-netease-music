@@ -11,6 +11,8 @@ import Sider from "./Sidebar";
 import Header from "./Header";
 import Content from "./Content";
 import MusicDetail from "components/MusicDetail";
+
+import KeepAlive from "react-activation";
 //导入样式
 import LayoutStyle from "./style";
 const LayoutNa = memo((props: any) => {
@@ -34,7 +36,9 @@ const LayoutNa = memo((props: any) => {
         <Layout>
           {/* <Sider></Sider> */}
           <div className="main">
-            <Content></Content>
+            <KeepAlive>
+              <Content></Content>
+            </KeepAlive>
           </div>
         </Layout>
         <Footer></Footer>

@@ -13,7 +13,12 @@ const MVItem: React.FC<IProps> = memo(
     return (
       <MVItemStyle>
         <div className="pic">
-          <img src={picUrl} loading="lazy" alt="" />
+          <img
+            src={`${picUrl}?param=512y512`}
+            loading="lazy"
+            alt=""
+            style={{ objectFit: "cover" }}
+          />
           <PlayCount count={playCount} className="playCount" />
           <div className="copywriter">{copywriter}</div>
         </div>

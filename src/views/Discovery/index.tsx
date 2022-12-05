@@ -13,12 +13,18 @@ import DiscoveryStyle from "./style";
 import { useDispatch } from "react-redux";
 import { recommend as recommendAction } from "@/reducers/songListSlice";
 
+import KeepAlive from "react-activation";
+
 const Discovery = memo(() => {
   const dispatch = useDispatch();
   //请求推荐歌单
   const [state, recommendSongFn] = useAsyncFn(songApis.getRecommendSongs);
-  //请求歌单
+  //请求私人雷达
   const [playList, playListFn] = useAsyncFn(playListApi.getPlayList);
+  //请求时光雷达
+  const [timeRadar, timeRadarFn] = useAsyncFn(playListApi.getPlayList);
+  //请求宝藏雷达
+  const [TreasureRadar, TreasureRadarFn] = useAsyncFn(playListApi.getPlayList);
   //请求艺人
   const [artists, artistsFn]: any = useAsyncFn(artistApis.topListOfArtists);
 
@@ -30,6 +36,9 @@ const Discovery = memo(() => {
 
   //获取封面
   const radarImg = playList.value && playList.value.playlist.coverImgUrl;
+  const timeRadarImg = timeRadar.value && timeRadar.value.playlist.coverImgUrl;
+  const TreasureRadarImg =
+    TreasureRadar.value && TreasureRadar.value.playlist.coverImgUrl;
 
   //推荐艺人
   const [recommendArtists, setRecommendArtists]: any = useState({});
@@ -40,12 +49,17 @@ const Discovery = memo(() => {
   });
 
   const { value: result } = state;
+  console.log(result);
+
   //页面请求
   useEffect(() => {
     //获取推荐歌曲
     recommendSongFn();
     //官方没有找到专门雷达歌单的接口,自己找的id
     playListFn(3136952023);
+    timeRadarFn(5320167908);
+    TreasureRadarFn(5362359247);
+
     //获取歌手列表
     artistsFn(null);
     //请求排行歌单
@@ -93,15 +107,44 @@ const Discovery = memo(() => {
       <div className="forYou">
         <LinkTitle title="For You"></LinkTitle>
         <div className="recommend">
-          <Card
-            img={`${result && result[0]?.picUrl}?param=512y512`}
-            width={400}
-          ></Card>
-          <Card
-            img={playList && radarImg}
-            showPlayIcon
-            id={playList?.value?.playlist.id}
-          ></Card>
+          <div className="recommendDaily">
+            <div className="animate">
+              <KeepAlive>
+                <Card
+                  img={`${result && result[0]?.picUrl}?param=512y512`}
+                  width={400}
+                  height={400}
+                  showAnimation={false}
+                ></Card>
+              </KeepAlive>
+            </div>
+            <div className="text">每日推荐</div>
+          </div>
+          <div className="personalRadar">
+            <KeepAlive>
+              <Card
+                img={playList && radarImg}
+                showPlayIcon
+                id={playList?.value?.playlist.id}
+                showAnimation={false}
+              ></Card>
+            </KeepAlive>
+            <div className="text">私人雷达</div>
+          </div>
+          <KeepAlive>
+            <Card
+              img={timeRadar && timeRadarImg}
+              showPlayIcon
+              id={timeRadar?.value?.playlist.id}
+            ></Card>
+          </KeepAlive>
+          <KeepAlive>
+            <Card
+              img={TreasureRadar && TreasureRadarImg}
+              showPlayIcon
+              id={TreasureRadar?.value?.playlist.id}
+            ></Card>
+          </KeepAlive>
         </div>
       </div>
       <div className="recommandArtist">
@@ -130,17 +173,18 @@ const Discovery = memo(() => {
           {topList?.items &&
             topList?.items.map((item: any) => {
               return (
-                <Card
-                  key={item.coverImgId}
-                  img={`${item.coverImgUrl}?param=400y400`}
-                  showPlayIcon
-                  id={item.id}
-                ></Card>
+                <KeepAlive>
+                  <Card
+                    key={item.coverImgId}
+                    img={`${item.coverImgUrl}?param=400y400`}
+                    showPlayIcon
+                    id={item.id}
+                  ></Card>
+                </KeepAlive>
               );
             })}
         </div>
       </div>
-
       <div className="newAlbum">
         <LinkTitle title="新专速推"></LinkTitle>
         {/* 拿到数据需要map */}
@@ -148,14 +192,16 @@ const Discovery = memo(() => {
           {newAlbum.value &&
             newAlbum.value.map((item: any) => {
               return (
-                <Card
-                  key={item.pirId}
-                  img={`${item.picUrl}?param=400y400`}
-                  name={item.name}
-                  author={item.artist.name}
-                  showPlayIcon
-                  id={item.id}
-                ></Card>
+                <KeepAlive>
+                  <Card
+                    key={item.pirId}
+                    img={`${item.picUrl}?param=400y400`}
+                    name={item.name}
+                    author={item.artist.name}
+                    showPlayIcon
+                    id={item.id}
+                  ></Card>
+                </KeepAlive>
               );
             })}
         </div>

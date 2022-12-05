@@ -4,6 +4,7 @@ import Layout from "components/Layout";
 import AppStyle from "./style";
 //导入路由
 import { BrowserRouter } from "react-router-dom";
+import { AliveScope } from "react-activation";
 
 //导入redux
 import { Provider } from "react-redux";
@@ -13,11 +14,13 @@ function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <AppStyle>
-          <div className="app">
-            <Layout></Layout>
-          </div>
-        </AppStyle>
+        <AliveScope>
+          <AppStyle>
+            <div className="app">
+              <Layout></Layout>
+            </div>
+          </AppStyle>
+        </AliveScope>
       </Provider>
     </BrowserRouter>
   );

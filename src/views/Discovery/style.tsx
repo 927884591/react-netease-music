@@ -1,10 +1,66 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const animate = keyframes`
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-200px);
+  }
+`;
 
 export default styled.div`
   .forYou {
     .recommend {
       display: flex;
       justify-content: space-around;
+      .recommendDaily {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 10px;
+        .animate {
+          animation: ${animate} 50s 1s infinite alternate;
+        }
+        .text {
+          position: absolute;
+          font-weight: 700;
+          font-size: 39px;
+          color: white;
+          top: 86px;
+          left: 13px;
+          width: 100px;
+          letter-spacing: 11px;
+          line-height: 55px;
+          user-select: none;
+        }
+        transition: transform 0.8s;
+        &:hover {
+          transform: translate(0, -5px);
+          transition: transform 0.8s;
+        }
+      }
+      .personalRadar {
+        position: relative;
+        .text {
+          position: absolute;
+          font-weight: 700;
+          font-size: 26px;
+          color: white;
+          top: 128px;
+          left: 13px;
+          width: 62px;
+          letter-spacing: 5px;
+          line-height: 31px;
+          user-select: none;
+        }
+        transition: transform 0.8s;
+        &:hover {
+          transform: translate(0, -5px);
+          transition: transform 0.8s;
+        }
+      }
     }
   }
   .recommandArtist {

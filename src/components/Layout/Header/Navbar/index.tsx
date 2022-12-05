@@ -1,13 +1,6 @@
-import {
-  HOME,
-  LATEST_MUSIC,
-  DISCOVERY,
-  SONG_LIST,
-  LEADER_BOARD,
-  SINGERS,
-} from "@/constants/routers1";
-import { useNavigate } from "react-router-dom";
-import React, { memo, useState } from "react";
+import { HOME, DISCOVERY, SONG_LIST } from "@/constants/routers1";
+import { useLocation, useNavigate } from "react-router-dom";
+import React, { memo, useState, useEffect } from "react";
 import cn from "classnames";
 import NavbarStyle from "./style";
 const navbar: any = [
@@ -26,22 +19,27 @@ const navbar: any = [
 ];
 
 const Navbar = memo(() => {
+  const location = useLocation();
   //绑定Index值
-  const [currenIndex, setCurrenIndex] = useState<Number>(0);
+  const [curren, setCurren] = useState<String>("");
   const navigate = useNavigate();
-  const changeCurrenIndex = (index: Number, route: any) => {
-    setCurrenIndex(index);
+  const changeCurren = (route: any) => {
+    setCurren(route);
     navigate(route);
   };
+  //当导航变化时触发
+  useEffect(() => {
+    setCurren(location.pathname);
+  }, [navigate]);
   return (
     <NavbarStyle>
-      {navbar.map((item: any, index: Number) => {
+      {navbar.map((item: any) => {
         return (
           <span
             key={item.label}
-            className={cn(["navItem", currenIndex === index ? "active" : ""])}
+            className={cn(["navItem", curren === item.route ? "active" : ""])}
             onClick={() => {
-              changeCurrenIndex(index, item.route);
+              changeCurren(item.route);
             }}
           >
             {item.label}

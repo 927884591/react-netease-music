@@ -54,7 +54,7 @@ export default styled.div`
       transform: scale(0.92, 0.96);
       z-index: -1;
       background-size: cover;
-      border-radius: 50px 50px 1em 1em;
+      /* border-radius: 50px 50px 1em 1em; */
       aspect-ratio: 1 / 1;
       opacity: 0;
       transition: all 1.2s;

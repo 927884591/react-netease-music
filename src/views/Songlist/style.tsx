@@ -18,12 +18,34 @@ export default styled.div`
       display: flex;
       margin-top: 15px;
       .btn {
-        height: 100px;
+        position: relative;
+        color: #335eea;
+        text-align: center;
+        height: 80px;
         width: 250px;
         border-radius: 20px;
-        background: rgba(176, 210, 255, 0.5);
+        background: #eaeffd;
         backdrop-filter: blur(15px);
         margin-right: 15px;
+        font-weight: 700;
+        font-size: 26px;
+        .playBtn {
+          background: #335eea;
+          position: absolute;
+          right: 20px;
+          top: 35px;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          fill: #f1f0ee;
+          cursor: pointer;
+          > svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
       }
       .list {
         display: flex;
@@ -32,9 +54,10 @@ export default styled.div`
         .item {
           display: flex;
           .likeMusicInfo {
-            width: 100px;
+            width: 80px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;

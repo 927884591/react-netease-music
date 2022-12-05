@@ -107,7 +107,6 @@ const createHTMLMedia = (tag: "audio" | "video") => {
         controls: false,
         ...props,
         ref,
-        className: "lalala",
         onPlay: wrapEvent(props.onPlay, onPlay),
         onPause: wrapEvent(props.onPause, onPause),
         onVolumeChange: wrapEvent(props.onVolumeChange, onVolumeChange),

@@ -12,6 +12,10 @@ import Card from "@/components/Card";
 
 import LinkTitle from "@/components/LinkTitle";
 
+import KeepAlive from "react-activation";
+
+import { ReactComponent as PlayIcon } from "assets/icons/play.svg";
+
 const Songlist = memo(() => {
   const userInfo = useInfoLocalStorage.getItem();
   const [likelist, likelistFn] = useAsyncFn(userApis.getLikeList);
@@ -22,7 +26,7 @@ const Songlist = memo(() => {
   const [userSonglist, userSonglistFn]: any = useAsyncFn(
     songlistApis.getUserSonglist
   );
-  console.log(999999999, userSonglist);
+  console.log(userSonglist);
 
   useEffect(() => {
     //拿到uid后获取用户喜欢的音乐
@@ -48,19 +52,29 @@ const Songlist = memo(() => {
           <div className="nickname">{profile && profile.nickname}</div>
         </div>
         <div className="likeMuisc">
-          <div className="btn">我喜欢的音乐</div>
+          <div className="btn">
+            <span>我喜欢的音乐</span>
+            <div className="playBtn">
+              <PlayIcon
+                style={{ fill: "white", width: "15px", height: "15px" }}
+              ></PlayIcon>
+            </div>
+          </div>
           <div className="list">
             {playlist &&
               playlist?.value?.map((item: any) => {
                 return (
                   <div className="item">
-                    <Card
-                      key={item.id}
-                      img={`${item.picUrl}?param=200y200`}
-                      width={50}
-                      height={50}
-                      showAnimation={false}
-                    ></Card>
+                    <KeepAlive>
+                      <Card
+                        key={item.id}
+                        img={`${item.picUrl}?param=200y200`}
+                        width={80}
+                        height={80}
+                        showAnimation={false}
+                        showPlayIcon
+                      ></Card>
+                    </KeepAlive>
                     <div className="likeMusicInfo">
                       <div className="name">{item.name}</div>
                       <div className="detail">{item.artists[0].name}</div>
@@ -77,11 +91,13 @@ const Songlist = memo(() => {
           {userSonglist.value?.collect.map((item: any) => {
             return (
               <div className="item" key={item.id}>
-                <Card
-                  img={`${item.coverImgUrl}?param=512y512`}
-                  showPlayIcon
-                  id={item.id}
-                ></Card>
+                <KeepAlive>
+                  <Card
+                    img={`${item.coverImgUrl}?param=512y512`}
+                    showPlayIcon
+                    id={item.id}
+                  ></Card>
+                </KeepAlive>
                 <div className="name">{item.name}</div>
                 <div className="author">By {item.creator.nickname}</div>
               </div>

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useRef, useState, useEffect } from "react";
 
 import AlbumItemStyle from "./style";
 import { ReactComponent as PlayIcon } from "assets/icons/play.svg";
@@ -15,6 +15,8 @@ import { setPlayList, play } from "@/reducers/playMusicSlice";
 import { IMusic } from "@/apis/types/business";
 
 import { PLAY_LIST } from "constants/routers1";
+
+import { Skeleton } from "antd";
 
 import cn from "classnames";
 
@@ -47,6 +49,14 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
     playlist,
     onClick,
   } = props;
+  //监听图片是否加载完成,来做骨架屏
+  const [loading, setLoading] = useState(false);
+  //迫不得已使用window
+
+  window.onload = () => {
+    setLoading(true);
+  };
+  // //当图片加载完取消监听
 
   const dispatch = useDispatch();
 
@@ -59,8 +69,6 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
   );
 
   const playAll = (value: IMusic[], autoPlay?: boolean) => {
-    console.log(value);
-
     dispatch(
       setPlayList({
         playList: value,
@@ -84,10 +92,19 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
       }}
       onClick={id ? () => handleItemClick(id) : () => {}}
     >
-      <div className={cn("img", showAnimation && "showAnimation")}>
+      <div
+        className={cn("img", showAnimation && "showAnimation")}
+        style={{ width: width, height: height }}
+      >
         <div
           className="shadow"
-          style={{ backgroundImage: `url(${img})` }}
+          style={{
+            backgroundImage: `url(${img})`,
+            borderRadius:
+              width && borderRadius === width / 2
+                ? "50px 50px 60px 60px"
+                : "50px 50px 1em 1em",
+          }}
         ></div>
         {playCount && (
           <div className="playCount">
@@ -96,7 +113,6 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
           </div>
         )}
         <img
-          decoding="async"
           // 如果有值的话就给个默认值
           width={width ? width + "px" : "200px"}
           height={height ? height + "px" : "200px"}

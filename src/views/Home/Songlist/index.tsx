@@ -8,6 +8,9 @@ import { SONG_LIST } from "@/constants/routers1";
 
 import useAsyncFn from "hooks/useAsyncFn";
 import personalizedApis from "apis/personalized";
+
+import { Skeleton } from "antd";
+
 const Songlist = memo(() => {
   const [state, personalizedSonglistFn] = useAsyncFn(
     personalizedApis.getPersonalizedSonglist
@@ -19,7 +22,10 @@ const Songlist = memo(() => {
   return (
     <SonglistStyle>
       <LinkTitle title="推荐歌单" route={SONG_LIST} checkAll />
-      {isGettingSonglist ? "哈哈哈" : <Songlists data={songlist} />}
+      {/* {isGettingSonglist ? "哈哈哈" : <Songlists data={songlist} />} */}
+      <Skeleton loading={isGettingSonglist} active>
+        <Songlists data={songlist} />
+      </Skeleton>
     </SonglistStyle>
   );
 });
