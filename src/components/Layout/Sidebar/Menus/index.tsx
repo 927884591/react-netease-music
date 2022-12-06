@@ -72,7 +72,6 @@ const Menus = memo(() => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const handleMenuItemClick = (route: string) => {
-    console.log("路由跳转", route);
     navigate(route);
   };
   return (

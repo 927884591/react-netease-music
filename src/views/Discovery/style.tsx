@@ -41,26 +41,6 @@ export default styled.div`
           transition: transform 0.8s;
         }
       }
-      .personalRadar {
-        position: relative;
-        .text {
-          position: absolute;
-          font-weight: 700;
-          font-size: 26px;
-          color: white;
-          top: 128px;
-          left: 13px;
-          width: 62px;
-          letter-spacing: 5px;
-          line-height: 31px;
-          user-select: none;
-        }
-        transition: transform 0.8s;
-        &:hover {
-          transform: translate(0, -5px);
-          transition: transform 0.8s;
-        }
-      }
     }
   }
   .recommandArtist {

@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback, useEffect } from "react";
+import React, { memo, useMemo, useCallback, useEffect, Suspense } from "react";
 import { Layout } from "antd";
 import { MODE, playList as playListLocalStorage } from "helpers/play";
 //导入路由
@@ -25,7 +25,7 @@ const ContentNa = memo((props: any) => {
   //拿到封装好的audio
   const [audio, audioState, audioControls, audioRef] = useAudio({
     src: musicUrl,
-    autoPlay: true,
+    // autoPlay: true,
     onEnded: () => playNextMusic(),
     onError: () => {
       if (playMode === MODE.SINGLE_CYCLE) {
@@ -94,8 +94,10 @@ const ContentNa = memo((props: any) => {
           overflow: "initial",
         }}
       >
-        {/* 使用路由 */}
-        {useRoutes(routes)}
+        <Suspense fallback={<div>loading...</div>}>
+          {/* 使用路由 */}
+          {useRoutes(routes)}
+        </Suspense>
       </Content>
     </ContentStyle>
   );

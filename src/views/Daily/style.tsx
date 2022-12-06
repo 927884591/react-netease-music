@@ -51,7 +51,6 @@ export default styled.div`
             background: #1b4beb;
             cursor: pointer;
           }
-          user-select: none;
         }
       }
     }

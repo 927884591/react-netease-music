@@ -17,9 +17,10 @@ export default styled.div`
       flex: 1;
     }
     .nav {
+      position: relative;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-end;
       width: 1140px;
       + div {
         flex: 1;
@@ -27,6 +28,46 @@ export default styled.div`
       .info {
         display: flex;
         align-items: center;
+      }
+      .route {
+        position: absolute;
+        left: 0%;
+        .back {
+          display: inline-block;
+          margin-right: 15px;
+
+          > svg {
+            width: 40px;
+            height: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease-in;
+            background-color: #fff;
+            border-radius: 5px;
+            &:hover {
+              box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+              transform: translateY(-2px);
+              transition: all 0.4s;
+            }
+          }
+        }
+        .forward {
+          display: inline-block;
+
+          > svg {
+            width: 40px;
+            height: 20px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease-in;
+            background-color: #fff;
+            border-radius: 5px;
+            &:hover {
+              box-shadow: 9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff;
+              transform: translateY(-2px);
+              transition: all 0.4s;
+            }
+          }
+        }
       }
     }
   }

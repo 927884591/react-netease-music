@@ -6,7 +6,6 @@ import { SearchOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
 import useAsyncFn from "hooks/useAsyncFn";
-import useClickAway from "hooks/useClickAway";
 import useQuery from "hooks/useQuery";
 import searchApis from "apis/search";
 import SearchResult from "./SearchResult";
@@ -17,12 +16,15 @@ import { debounce } from "helpers/fn";
 
 import ROUTES from "constants/routes";
 
+import { Modal } from "antd";
+
+import { ReactComponent as SearchIcon } from "assets/icons/search.svg";
+
 import cn from "classnames";
 
 const SearchBox = memo(() => {
   const navigate = useNavigate();
   const query = useQuery();
-  const searchRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [keyword, setKeyword] = useState(query.keyword || "");
@@ -35,9 +37,10 @@ const SearchBox = memo(() => {
     searchHotFn();
   }, []);
 
-  useClickAway(searchRef, () => setShowResult(false));
-
-  const handleInputFocus = () => setShowResult(true);
+  const handleInputFocus = () => {
+    setShowResult(true);
+    inputRef.current?.focus();
+  };
 
   const handleInputChange = async (value: string) => {
     if (value) {
@@ -49,7 +52,6 @@ const SearchBox = memo(() => {
     navigate(`${ROUTES.SEARCH}?keyword=${word}`);
     setSearchHistory(word);
     setShowResult(false);
-    inputRef.current?.blur();
   };
 
   const handleInputKeyPress = async (
@@ -77,37 +79,51 @@ const SearchBox = memo(() => {
     <SeachBoxStyle>
       <div className="search">
         <SearchOutlined className="searchBtn" />
-        <input
-          type="text"
-          placeholder="搜索"
-          ref={inputRef}
-          value={keyword}
-          onFocus={handleInputFocus}
-          onChange={({ target: { value } }) => {
-            setKeyword(value);
-            debounceInputChange(value);
-          }}
-          onKeyPress={handleInputKeyPress}
-        />
+        <input type="text" placeholder={keyword} onClick={handleInputFocus} />
       </div>
-      <div className={cn("result", showResult && "show")}>
-        {searchResult && keyword ? (
-          <SearchResult data={searchResult} />
-        ) : (
-          <div>
-            <Words
-              title="热门搜索"
-              words={state.value?.map(({ first }) => first)}
-              onWordClick={handleWordClick}
-            />
-            <Words
-              title="搜索历史"
-              words={searchHistoryLocalStorage.getItem()}
-              onWordClick={handleWordClick}
-            />
-          </div>
-        )}
-      </div>
+
+      <Modal
+        open={showResult}
+        onCancel={() => setShowResult(false)}
+        footer={null}
+        getContainer={".container"}
+        closable={false}
+        maskClosable
+        destroyOnClose
+      >
+        <div className="searchBox">
+          <SearchIcon className="searchIcon" width={"17px"}></SearchIcon>
+          <input
+            ref={inputRef}
+            type="text"
+            onKeyPress={handleInputKeyPress}
+            onChange={({ target: { value } }) => {
+              setKeyword(value);
+              debounceInputChange(value);
+            }}
+            autoFocus
+          ></input>
+        </div>
+        <div className={cn("result", showResult && "show")}>
+          {searchResult && keyword ? (
+            <SearchResult data={searchResult} />
+          ) : (
+            <>
+              <Words
+                title="搜索历史"
+                words={searchHistoryLocalStorage.getItem()}
+                remove={searchHistoryLocalStorage.removeItem}
+                onWordClick={handleWordClick}
+              />
+              <Words
+                title="热门搜索"
+                words={state.value?.map(({ first }) => first)}
+                onWordClick={handleWordClick}
+              />
+            </>
+          )}
+        </div>
+      </Modal>
     </SeachBoxStyle>
   );
 });

@@ -8,8 +8,6 @@ interface IProps {
   data: ISonglist[];
 }
 const Songlists: React.FC<IProps> = memo(({ data }) => {
-  console.log(data);
-
   return (
     <SonglistsStyle>
       {data?.map(({ id, name, playCount, picUrl, coverImgUrl }, index) => {

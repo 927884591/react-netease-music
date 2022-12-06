@@ -6,7 +6,7 @@ import CommentStyle from "./style";
 import { IComment } from "apis/types/comment";
 import { formatDatetime } from "helpers/time";
 
-import { LikeFilled } from "@ant-design/icons";
+import { LikeFilled, LikeOutlined } from "@ant-design/icons";
 
 interface IProps {
   data: IComment;
@@ -15,6 +15,7 @@ interface IProps {
 const Comment: React.FC<IProps> = memo((props: any) => {
   const { data, onLikeChange } = props;
   const { user, content, beReplied, time, likedCount, liked } = data;
+  console.log(99999999999, liked);
 
   const likeUnlike = async () => {
     await onLikeChange(data);
@@ -52,7 +53,7 @@ const Comment: React.FC<IProps> = memo((props: any) => {
           <div className="time">{formatDatetime(time, true)}</div>
           <div className="operations">
             <div className={cn("like", liked && "active")} onClick={likeUnlike}>
-              <LikeFilled />
+              {liked ? <LikeFilled /> : <LikeOutlined />}
               &nbsp;
               {!!likedCount && <span>{likedCount}</span>}
             </div>

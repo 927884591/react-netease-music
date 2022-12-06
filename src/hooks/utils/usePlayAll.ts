@@ -5,13 +5,16 @@ import { IMusic } from "@/apis/types/business";
 import { setPlayList, play } from "@/reducers/playMusicSlice";
 import { createMusic } from "helpers/business";
 
+import { useStore } from "react-redux";
+
 export const usePlayAll = () => {
+  const store: any = useStore();
+
   const dispatch = useDispatch();
   return (value: IMusic[], autoPlay?: boolean) => {
     if (!value) {
       return;
     }
-    console.log(value);
     dispatch(
       setPlayList({
         playList: value,
@@ -25,6 +28,7 @@ export const usePlayAll = () => {
           music: createMusic(item),
         })
       );
+      store.getState()?.audio.controls.play();
     }
   };
 };

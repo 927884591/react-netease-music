@@ -13,10 +13,16 @@ import DiscoveryStyle from "./style";
 import { useDispatch } from "react-redux";
 import { recommend as recommendAction } from "@/reducers/songListSlice";
 
+import { useNavigate } from "react-router-dom";
+import { DAILY } from "@/constants/routers1";
+
 import KeepAlive from "react-activation";
 
 const Discovery = memo(() => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   //请求推荐歌单
   const [state, recommendSongFn] = useAsyncFn(songApis.getRecommendSongs);
   //请求私人雷达
@@ -49,14 +55,13 @@ const Discovery = memo(() => {
   });
 
   const { value: result } = state;
-  console.log(result);
 
   //页面请求
   useEffect(() => {
     //获取推荐歌曲
     recommendSongFn();
     //官方没有找到专门雷达歌单的接口,自己找的id
-    playListFn(3136952023);
+    playListFn(2829883282);
     timeRadarFn(5320167908);
     TreasureRadarFn(5362359247);
 
@@ -107,7 +112,14 @@ const Discovery = memo(() => {
       <div className="forYou">
         <LinkTitle title="For You"></LinkTitle>
         <div className="recommend">
-          <div className="recommendDaily">
+          <div
+            className="recommendDaily"
+            onClick={() => {
+              console.log(1111);
+              navigate(DAILY);
+            }}
+            style={{ width: "400px", height: "200px" }}
+          >
             <div className="animate">
               <KeepAlive>
                 <Card
@@ -120,17 +132,13 @@ const Discovery = memo(() => {
             </div>
             <div className="text">每日推荐</div>
           </div>
-          <div className="personalRadar">
-            <KeepAlive>
-              <Card
-                img={playList && radarImg}
-                showPlayIcon
-                id={playList?.value?.playlist.id}
-                showAnimation={false}
-              ></Card>
-            </KeepAlive>
-            <div className="text">私人雷达</div>
-          </div>
+          <KeepAlive>
+            <Card
+              img={playList && radarImg}
+              showPlayIcon
+              id={playList?.value?.playlist.id}
+            ></Card>
+          </KeepAlive>
           <KeepAlive>
             <Card
               img={timeRadar && timeRadarImg}
@@ -173,7 +181,7 @@ const Discovery = memo(() => {
           {topList?.items &&
             topList?.items.map((item: any) => {
               return (
-                <KeepAlive>
+                <KeepAlive key={item.id}>
                   <Card
                     key={item.coverImgId}
                     img={`${item.coverImgUrl}?param=400y400`}
@@ -192,7 +200,7 @@ const Discovery = memo(() => {
           {newAlbum.value &&
             newAlbum.value.map((item: any) => {
               return (
-                <KeepAlive>
+                <KeepAlive key={item.id}>
                   <Card
                     key={item.pirId}
                     img={`${item.picUrl}?param=400y400`}

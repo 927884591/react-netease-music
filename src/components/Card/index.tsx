@@ -16,6 +16,8 @@ import { IMusic } from "@/apis/types/business";
 
 import { PLAY_LIST } from "constants/routers1";
 
+import { usePlayAll } from "@/hooks/utils/usePlayAll";
+
 import { Skeleton } from "antd";
 
 import cn from "classnames";
@@ -32,7 +34,7 @@ interface IPorps {
   id?: number;
   showAnimation?: boolean;
   playlist?: IMusic[];
-  onClick?: () => void;
+  data?: any;
 }
 const Card: React.FC<IPorps> = memo((props: IPorps) => {
   const {
@@ -47,7 +49,7 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
     showAnimation = true,
     id,
     playlist,
-    onClick,
+    data,
   } = props;
   //监听图片是否加载完成,来做骨架屏
   const [loading, setLoading] = useState(false);
@@ -62,29 +64,16 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
 
   const navigate = useNavigate();
   const handleItemClick = useCallback(
-    (id: number) => {
-      navigate(`${PLAY_LIST}/${id}`);
+    (id: number, autoPlay?: boolean) => {
+      if (autoPlay) {
+        navigate(`${PLAY_LIST}/${id}`, { state: { autoPlay: true } });
+        return;
+      }
+      navigate(`${PLAY_LIST}/${id}`, {});
     },
     [navigate]
   );
-
-  const playAll = (value: IMusic[], autoPlay?: boolean) => {
-    dispatch(
-      setPlayList({
-        playList: value,
-      })
-    );
-    if (autoPlay) {
-      const item = value?.[0] as IMusic;
-      dispatch(
-        play({
-          musicId: item.id,
-          music: createMusic(item),
-        })
-      );
-    }
-  };
-
+  const playAll = usePlayAll();
   return (
     <AlbumItemStyle
       style={{
@@ -135,6 +124,7 @@ const Card: React.FC<IPorps> = memo((props: IPorps) => {
             }}
             onClick={() => {
               playlist && playAll(playlist, true);
+              data && playAll(data, true);
             }}
           >
             <PlayIcon

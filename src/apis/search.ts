@@ -48,7 +48,6 @@ const search: SearchFn = async ({
       offset,
     },
   });
-  console.log(response);
 
   return response.result;
 };

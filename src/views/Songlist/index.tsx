@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import useAsyncFn from "@/hooks/useAsyncFn";
 
@@ -26,7 +26,20 @@ const Songlist = memo(() => {
   const [userSonglist, userSonglistFn]: any = useAsyncFn(
     songlistApis.getUserSonglist
   );
-  console.log(userSonglist);
+  //填充空余的div
+  let [i, setI]: any = useState([]);
+  useEffect(() => {
+    if (userSonglist.value?.collect) {
+      let i = userSonglist.value?.collect.length;
+      while (true) {
+        if (i % 5 === 0) {
+          setI(new Array(i - userSonglist.value?.collect.length).fill(1));
+          return;
+        }
+        i++;
+      }
+    }
+  }, [userSonglist]);
 
   useEffect(() => {
     //拿到uid后获取用户喜欢的音乐
@@ -102,6 +115,10 @@ const Songlist = memo(() => {
                 <div className="author">By {item.creator.nickname}</div>
               </div>
             );
+          })}
+          {/* 填充空余的位置 */}
+          {i.map(() => {
+            return <div style={{ width: "200px" }}></div>;
           })}
         </div>
       </div>

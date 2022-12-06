@@ -2,7 +2,7 @@ import { IAlbum, IMusic } from "@/apis/types/business";
 import React, { memo, useEffect, useState } from "react";
 import Card from "components/Card";
 
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import useAsyncFn from "@/hooks/useAsyncFn";
 
@@ -18,7 +18,10 @@ import { formatDatetime } from "@/helpers/time";
 const PlayList = memo(() => {
   //拿到路由传递过来的参数
   const params = useParams();
+  const location = useLocation();
   const { id } = params;
+  const { state } = location;
+
   const playAll = usePlayAll();
   //拿到歌单的详情,可以获取到所有歌曲的id
   const [playList, playListFn] = useAsyncFn(playListApis.getPlayList);
@@ -71,9 +74,14 @@ const PlayList = memo(() => {
           <div className="description">{playListToDOM?.description}</div>
           {/* 歌单操作 */}
           <div className="action">
-            <div className="playBtn">播放</div>
-            <div className="likeBtn">喜欢</div>
-            <div className="moreBtn">更多</div>
+            <div
+              className="playBtn btn"
+              onClick={() => songList?.value && playAll(songList?.value, true)}
+            >
+              播放
+            </div>
+            <div className="likeBtn btn">喜欢</div>
+            <div className="moreBtn btn">更多</div>
           </div>
         </div>
       </div>

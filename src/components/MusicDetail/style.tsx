@@ -80,6 +80,9 @@ export default styled.div`
       justify-content: center;
 
       .cover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 200px;
         height: 200px;
         border-radius: 50%;

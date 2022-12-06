@@ -24,6 +24,8 @@ import { createMusic } from "helpers/business";
 import { connect, useDispatch } from "react-redux";
 import { play } from "@/reducers/playMusicSlice";
 
+import { useLocation } from "react-router-dom";
+
 import MusicListStyle from "./style";
 
 interface IProps {
@@ -32,12 +34,13 @@ interface IProps {
 }
 const MusicList: React.FC<IProps> = memo((props: any) => {
   const { musicId, paused, data, onPlayAll } = props;
+  const location = useLocation();
+  const { state } = location;
 
   const dispatch = useDispatch();
-  console.log(data);
 
   useEffect(() => {
-    onPlayAll && onPlayAll(data, true);
+    onPlayAll && onPlayAll(data, state?.autoPlay);
   }, [data]);
 
   const columns: IColumn<IMusic, keyof IMusic>[] = [

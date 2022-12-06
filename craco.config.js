@@ -24,10 +24,6 @@ module.exports = {
         ],
         include: [path.resolve("src/assets/icons")],
       });
-      // webpackConfig.module.rules[1].oneOf[2].exclude = [
-      //   path.resolve("src/assets/icons"),
-      // ];
-      console.log(webpackConfig.module.rules[3]);
       return webpackConfig;
     },
     alias: {

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { HEADERHEIGHT, FOOTHEIGHT } from "@/constants/style";
 export default styled.span`
+  /* .searchBox在Layout/style.tsx下  因为对话框在这个css作用域下无法全局展示 */
   display: flex;
   align-items: center;
   .search {
@@ -16,6 +17,7 @@ export default styled.span`
     .searchBtn {
       margin: 0 5px;
     }
+
     input {
       width: 115px;
       margin-left: 3px;
@@ -41,4 +43,7 @@ export default styled.span`
   .show {
     transform: translate(0, 0);
   }
+
+  /* 对话框中的样式 */
+  /* .searchBox在Layout/style.tsx下  因为对话框在这个css作用域下无法全局展示 */
 `;

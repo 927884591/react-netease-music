@@ -72,7 +72,6 @@ const List: React.FC<IProps> = memo((props: any) => {
       key: "duration",
       width: "15%",
       render: (duration: number) => {
-        // console.log(formatTime(duration));
         return formatTime(duration);
       },
     },

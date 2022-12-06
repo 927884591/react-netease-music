@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export default styled.span`
-  display: inline-block;
-
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   .navItem {
     font-size: 1.1rem;
     margin-right: 32px;

@@ -15,6 +15,10 @@ import { loginOut } from "@/reducers/loginSlice";
 
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+
+import { ReactComponent as BackIcon } from "assets/icons/arrow-left.svg";
+import { ReactComponent as ForwardIcon } from "assets/icons/arrow-right.svg";
 
 import { ILoginResult } from "apis/types/auth";
 interface ILogin {
@@ -26,6 +30,9 @@ const { Header } = Layout;
 const HeaderNa = memo((props: ILogin) => {
   //管理登录的状态
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   //记录登录框是否已经弹出
   const [showLoginDialog, setShowLoginDialog] = useState(false);
 
@@ -59,6 +66,14 @@ const HeaderNa = memo((props: ILogin) => {
       <Header className="root">
         <Action></Action>
         <div className="nav">
+          <div className="route">
+            <div className="back" onClick={() => navigate(-1)}>
+              <BackIcon></BackIcon>
+            </div>
+            <div className="forward" onClick={() => navigate(1)}>
+              <ForwardIcon></ForwardIcon>
+            </div>
+          </div>
           <Navbar></Navbar>
           <div className="info">
             <SearchBox></SearchBox>

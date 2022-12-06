@@ -10,6 +10,8 @@ export const SINGERS = `/singers`;
 export const LATEST_MUSIC = `/latestmusic`;
 export const DISCOVERY = `/discovery`;
 
+export const DAILY = "/daily";
+
 export const VIDEOS = "/videos";
 export const VIDEO = `${VIDEOS}/video`;
 export const MV = `${VIDEOS}/mv`;

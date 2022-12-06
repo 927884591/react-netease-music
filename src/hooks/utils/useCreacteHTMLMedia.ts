@@ -140,9 +140,10 @@ const createHTMLMedia = (tag: "audio" | "video") => {
         if (!el) {
           return undefined;
         }
-
+        el.autoplay = true;
         if (!lockPlay) {
           const promise = el.play();
+
           const isPromise = typeof promise === "object";
 
           if (isPromise) {
@@ -160,6 +161,7 @@ const createHTMLMedia = (tag: "audio" | "video") => {
       pause: () => {
         const el = ref.current;
         if (el && !lockPlay) {
+          el.autoplay = false;
           return el.pause();
         }
       },
